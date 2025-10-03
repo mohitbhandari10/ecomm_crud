@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Ecommerce App</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <nav class="navbar">
+        <div class="nav-container">
+            <h1 class="logo">Ecommerce App</h1>
+            <div class="nav-links">
+                <a href="index.html">Home</a>
+                <a href="products.html">Products</a>
+                <span id="auth-links">
+                    <a href="login.html">Login</a>
+                    <a href="register.html">Register</a>
+                </span>
+                <span id="user-links" style="display: none;">
+                    <span id="user-email"></span>
+                    <button onclick="logout()">Logout</button>
+                </span>
+            </div>
+        </div>
+    </nav>
+
+    <div class="container">
+        <div class="hero">
+            <h1>Welcome to Our Ecommerce Platform</h1>
+            <p>Manage your products efficiently with our powerful admin tools</p>
+            <div class="cta-buttons">
+                <a href="products.html" class="btn btn-primary">View Products</a>
+                <a href="register.html" class="btn btn-secondary">Get Started</a>
+            </div>
+        </div>
+
+        <div class="features">
+            <div class="feature-card">
+                <h3>Product Management</h3>
+                <p>Add, edit, and delete products with ease</p>
+            </div>
+            <div class="feature-card">
+                <h3>User Authentication</h3>
+                <p>Secure login and registration system</p>
+            </div>
+            <div class="feature-card">
+                <h3>Admin Controls</h3>
+                <p>Full CRUD operations for admin users</p>
+            </div>
+        </div>
+    </div>
+
+    <script src="app.js"></script>
+</body>
+</html>

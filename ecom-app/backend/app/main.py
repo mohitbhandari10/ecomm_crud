@@ -5,7 +5,7 @@ from datetime import timedelta
 from typing import List, Dict, Any
 from typing_extensions import Annotated
 
-# from fastapi.security import OAuth2PasswordRequestForm
+from fastapi.security import OAuth2PasswordRequestForm
 
 from app.database import get_db, engine
 from app.models import Base, User
@@ -40,12 +40,40 @@ def register(user: UserCreate, db: Session = Depends(get_db)):
         is_admin=new_user.is_admin
     )
 
+# @app.post("/login", response_model=LoginResponse)
+# def login(
+#     form_data: OAuth2PasswordRequestForm = Depends(),
+#     db: Session = Depends(get_db)
+# ):
+#     user = authenticate_user(db, form_data.username, form_data.password)
+#     if not user:
+#         raise HTTPException(
+#             status_code=status.HTTP_401_UNAUTHORIZED,
+#             detail="Incorrect email or password",
+#         )
+#     access_token_expires = timedelta(minutes=ACCESS_TOKEN_EXPIRE_MINUTES)
+#     access_token = create_access_token(
+#         data={"sub": user.email}, expires_delta=access_token_expires
+#     )
+#     return LoginResponse(
+#         access_token=access_token,
+#         token_type="bearer",
+#         user_id=user.id,
+#         is_admin=user.is_admin
+#     )
+
 @app.post("/login", response_model=LoginResponse)
-def login(
-    # form_data: OAuth2PasswordRequestForm = Depends(),
-    db: Session = Depends(get_db)
-):
-    user = authenticate_user(db, form_data.username, form_data.password)
+def login(form_data: dict, db: Session = Depends(get_db)):
+    email = form_data.get("email")
+    password = form_data.get("password")
+    
+    if not email or not password:
+        raise HTTPException(
+            status_code=status.HTTP_422_UNPROCESSABLE_ENTITY,
+            detail="Email and password are required",
+        )
+    
+    user = authenticate_user(db, email, password)
     if not user:
         raise HTTPException(
             status_code=status.HTTP_401_UNAUTHORIZED,
